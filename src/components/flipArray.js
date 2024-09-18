@@ -1,0 +1,16 @@
+import arrayTransform from "./arrayHenshin";
+
+function arrayTransform(array) {
+  const result = array.map((x) => {
+    return parseInt(x.join(""), 10);
+  });
+  return result;
+}
+
+export default function flipArray(array) {
+  const newArray = arrayTransform(array);
+  const result = newArray.map((x) => {
+    return [x % 10, Math.floor(x / 10)];
+  });
+  return result;
+}
