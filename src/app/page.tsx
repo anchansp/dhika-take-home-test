@@ -1,9 +1,9 @@
 "use client";
-import arrayTransform from "@/components/arrayHenshin.js";
 import flipArray from "@/components/flipArray.js";
 import { sortAsc, sortDesc } from "@/components/sortAscDsc.js";
 import countDoubles from "@/components/countDoubles.js";
-import removeTotal from "@/components/removesTotal";
+import removeTotal from "@/components/removesTotal.js";
+import removeDominoes from "@/components/removesDominoes.js";
 
 import { useState } from "react";
 
@@ -133,6 +133,19 @@ export default function Home() {
             }}
           >
             Flip
+          </button>
+        </div>
+
+        <div className="py-4">
+          <button
+            className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+            onClick={() => {
+              const newArray = removeDominoes(cardArrayReplica);
+              setCardArrayReplica(newArray);
+              return newArray;
+            }}
+          >
+            Remove Dupes
           </button>
         </div>
 

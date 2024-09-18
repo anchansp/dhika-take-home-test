@@ -1,4 +1,4 @@
-import arrayTransform from "./arrayHenshin";
+import arrayTransform from "./arrayHenshin.js";
 
 export function sortAsc(array) {
   arrayTransform(array);

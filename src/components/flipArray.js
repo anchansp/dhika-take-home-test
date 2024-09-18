@@ -1,4 +1,4 @@
-import arrayTransform from "./arrayHenshin";
+import arrayTransform from "./arrayHenshin.js";
 
 export default function flipArray(array) {
   const newArray = arrayTransform(array);
