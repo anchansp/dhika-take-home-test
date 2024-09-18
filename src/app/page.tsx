@@ -84,8 +84,9 @@ export default function Home() {
       {/* sets */}
       <div className="flex justify-center">
         <div className="flex flex-col justify-center gap-4 bg-secondary/20 rounded-lg w-96">
+          <h2 className="text-2xl font-bold text-center py-4 gap-4">Source:</h2>
           <h3 className="text-2xl py-4 text-center">
-            Set:{" "}
+            {/* Source:{" "} */}
             {cardArrayReplica.length == 0
               ? "Empty Set"
               : `[${cardArrayReplica.join("], [")}],`}
@@ -96,7 +97,7 @@ export default function Home() {
         </div>
       </div>
       {/* buttons */}
-      <div className="flex gap-4 justify-center">
+      <div className="flex gap-4 justify-center align-baseline">
         <div className="py-4">
           <button
             className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
@@ -223,11 +224,11 @@ export default function Home() {
               key={index}
             >
               <div className="card grid h-20 place-items-center py-4">
-                {item[0]}
+                <p className="text-2xl">{item[0]}</p>
               </div>
               <div className="divider"></div>
               <div className="card grid h-20 place-items-center py-4">
-                {item[1]}
+                <p className="text-2xl">{item[1]}</p>
               </div>
             </div>
           );
