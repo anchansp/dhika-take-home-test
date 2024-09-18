@@ -1,7 +1,8 @@
 "use client";
 import arrayTransform from "@/components/arrayHenshin.js";
-import flipArray from "@/components/flipArray";
+import flipArray from "@/components/flipArray.js";
 import { sortAsc, sortDesc } from "@/components/sortAscDsc.js";
+import countDoubles from "@/components/countDoubles.js";
 
 import { useState } from "react";
 
@@ -17,14 +18,14 @@ export default function Home() {
     //replica
     setCardArrayReplica((prev) => [...prev, [topNumber, bottomNumber]]);
     //Reset
-    setTopNumber(1);
-    setBottomNumber(1);
+    // setTopNumber(1);
+    // setBottomNumber(1);
     return cardArray;
   }
 
   return (
     <main>
-      <h1 className="text-4xl py-6 text-center">Dominoes</h1>
+      <h1 className="text-4xl py-6 text-center font-bold">Dominoes</h1>
       <h2 className="text-3xl py-4 text-center">Insert a Domino Card</h2>
       <div className="flex gap-4 justify-center text-center">
         <form onSubmit={handleSubmit}>
@@ -67,26 +68,21 @@ export default function Home() {
         </form>
       </div>
       {/* sets */}
-      <div>
-        <h3 className="text-2xl py-4 text-center">
-          Set: [{cardArrayReplica.join("], [")}],
-        </h3>
+      <div className="flex justify-center">
+        <div className="flex flex-col justify-center gap-4 bg-secondary/20 rounded-lg w-96">
+          <h3 className="text-2xl py-4 text-center">
+            Set:{" "}
+            {cardArrayReplica.length == 0
+              ? "Empty Set"
+              : `[${cardArrayReplica.join("], [")}],`}
+          </h3>
+          <h3 className="text-2xl py-4 text-center">
+            Doubles: {countDoubles(cardArrayReplica)}
+          </h3>
+        </div>
       </div>
       {/* buttons */}
       <div className="flex gap-4 justify-center">
-        <div className="py-4">
-          <button
-            className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
-            onClick={() => {
-              const flippedArray = flipArray(cardArrayReplica);
-              setCardArrayReplica(flippedArray);
-              return flippedArray;
-            }}
-          >
-            Flip
-          </button>
-        </div>
-
         <div className="py-4">
           <button
             className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
@@ -117,11 +113,37 @@ export default function Home() {
           <button
             className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
             onClick={() => {
+              const flippedArray = flipArray(cardArrayReplica);
+              setCardArrayReplica(flippedArray);
+              return flippedArray;
+            }}
+          >
+            Flip
+          </button>
+        </div>
+
+        <div className="py-4">
+          <button
+            className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+            onClick={() => {
               const resetCard = setCardArrayReplica(cardArray);
               return resetCard;
             }}
           >
             Reset
+          </button>
+        </div>
+
+        <div className="py-4">
+          <button
+            className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+            onClick={() => {
+              const emptyCard = setCardArray([]);
+              setCardArrayReplica([]);
+              return emptyCard;
+            }}
+          >
+            Empty Set
           </button>
         </div>
       </div>
