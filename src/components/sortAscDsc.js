@@ -1,6 +1,6 @@
 import arrayTransform from "./arrayHenshin";
 
-export default function sortAsc(array) {
+export function sortAsc(array) {
   arrayTransform(array);
   const arrayAsc = arrayTransform(array)
     .slice()
@@ -10,7 +10,7 @@ export default function sortAsc(array) {
   return mapAsc;
 }
 
-export default function sortDesc(array) {
+export function sortDesc(array) {
   arrayTransform(array);
   const arrayDesc = arrayTransform(array)
     .slice()
@@ -19,30 +19,6 @@ export default function sortDesc(array) {
   const mapDesc = arrayDesc.map((x) => [Math.floor(x / 10), x % 10]);
   return mapDesc;
 }
-
-console.log(
-  arrayTransform([
-    [3, 4],
-    [1, 2],
-    [1, 6],
-  ])
-);
-
-console.log(
-  sortAsc([
-    [3, 4],
-    [1, 2],
-    [1, 6],
-  ])
-);
-
-console.log(
-  sortDesc([
-    [3, 4],
-    [1, 2],
-    [1, 6],
-  ])
-);
 
 // let transformedArray;
 // for (i = 0; i < array.length; i++) {
