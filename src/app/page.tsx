@@ -3,23 +3,35 @@ import arrayTransform from "@/components/arrayHenshin.js";
 import flipArray from "@/components/flipArray.js";
 import { sortAsc, sortDesc } from "@/components/sortAscDsc.js";
 import countDoubles from "@/components/countDoubles.js";
+import removeTotal from "@/components/removesTotal";
 
 import { useState } from "react";
 
 export default function Home() {
   const [topNumber, setTopNumber] = useState(1);
   const [bottomNumber, setBottomNumber] = useState(1);
-  const [cardArray, setCardArray] = useState<any[]>([]);
-  const [cardArrayReplica, setCardArrayReplica] = useState<any[]>([]);
+  const [cardArray, setCardArray] = useState<any[]>([
+    //default value
+    [1, 2],
+    [1, 1],
+    [4, 1],
+    [3, 3],
+    [6, 1],
+  ]);
+  const [cardArrayReplica, setCardArrayReplica] = useState<any[]>([
+    [1, 2],
+    [1, 1],
+    [4, 1],
+    [3, 3],
+    [6, 1],
+  ]);
+  const [inputNumber, setInputNumber] = useState(2);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setCardArray((prev) => [...prev, [topNumber, bottomNumber]]);
     //replica
     setCardArrayReplica((prev) => [...prev, [topNumber, bottomNumber]]);
-    //Reset
-    // setTopNumber(1);
-    // setBottomNumber(1);
     return cardArray;
   }
 
@@ -29,12 +41,13 @@ export default function Home() {
       <h2 className="text-3xl py-4 text-center">Insert a Domino Card</h2>
       <div className="flex gap-4 justify-center text-center">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="Top">Top Number</label>
+          <label htmlFor="top">Top Number</label>
           <div className="gap-4">
             <input
               type="number"
               min={1}
-              name="Top"
+              max={6}
+              id="top"
               value={topNumber}
               onChange={(e) => {
                 setTopNumber(+e.target.value);
@@ -43,12 +56,13 @@ export default function Home() {
             ></input>
           </div>
           {/* break */}
-          <label htmlFor="Bottom">Bottom Number</label>
+          <label htmlFor="bottom">Bottom Number</label>
           <div className="gap-4">
             <input
               type="number"
               min={1}
-              name="Bottom"
+              max={6}
+              id="bottom"
               value={bottomNumber}
               onChange={(e) => {
                 setBottomNumber(+e.target.value);
@@ -140,6 +154,9 @@ export default function Home() {
             onClick={() => {
               const emptyCard = setCardArray([]);
               setCardArrayReplica([]);
+              //Empty everything
+              setTopNumber(1);
+              setBottomNumber(1);
               return emptyCard;
             }}
           >
@@ -147,6 +164,43 @@ export default function Home() {
           </button>
         </div>
       </div>
+
+      {/* doubles */}
+      <div className="flex justify-center text-center">
+        <form
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            const newArray = removeTotal(cardArrayReplica, inputNumber);
+            setCardArrayReplica(newArray);
+            return newArray;
+          }}
+        >
+          <label htmlFor="input">Input Number</label>
+          <div className="gap-4">
+            <input
+              type="number"
+              min={2}
+              max={12}
+              id="input"
+              value={inputNumber}
+              onChange={(e) => {
+                setInputNumber(+e.target.value);
+              }}
+              className="input input-bordered w-full max-w-xs"
+            ></input>
+          </div>
+          {/* break */}
+          <div className="py-4">
+            <button
+              type="submit"
+              className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+            >
+              Remove
+            </button>
+          </div>
+        </form>
+      </div>
+
       {/* card */}
       <div className="flex gap-4 px-4 py-4 justify-center">
         {cardArrayReplica.map((item, index) => {
